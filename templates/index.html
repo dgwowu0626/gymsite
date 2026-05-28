@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}{{ gym_name }} | Главная{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-copy">
+        <span class="eyebrow">Спокойный ритм. Понятный прогресс.</span>
+        <h1>{{ gym_name }} — зал для тех, кто хочет тренироваться без лишнего шума</h1>
+        <p>Современное пространство, удобное расписание, персональные и групповые тренировки, понятная система записи.</p>
+        <div class="hero-actions">
+            <a href="/booking" class="button button-primary">Записаться на тренировку</a>
+            <a href="/memberships" class="button button-secondary">Посмотреть абонементы</a>
+        </div>
+    </div>
+    <div class="hero-panel">
+        <div class="metric-card">
+            <span>Формат</span>
+            <strong>Тренажёрный зал + персональный тренинг</strong>
+        </div>
+        <div class="metric-card">
+            <span>График</span>
+            <strong>Ежедневно с 07:00 до 23:00</strong>
+        </div>
+        <div class="metric-card">
+            <span>Старт</span>
+            <strong>Первая запись за 2 минуты</strong>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-heading">
+        <span class="eyebrow">Преимущества</span>
+        <h2>Всё, что нужно для регулярных тренировок</h2>
+    </div>
+    <div class="grid grid-3">
+        <article class="info-card">
+            <h3>Понятный зал</h3>
+            <p>Чистое пространство, базовые и функциональные зоны, без перегруженного дизайна.</p>
+        </article>
+        <article class="info-card">
+            <h3>Тренеры рядом</h3>
+            <p>Персональные программы под набор массы, снижение веса и общую физическую форму.</p>
+        </article>
+        <article class="info-card">
+            <h3>Гибкая запись</h3>
+            <p>Онлайн-запись, быстрый выбор тренера и удобное управление заявками через CRM.</p>
+        </article>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-heading with-link">
+        <div>
+            <span class="eyebrow">Тренеры</span>
+            <h2>Команда зала</h2>
+        </div>
+        <a href="/trainers" class="text-link">Все тренеры</a>
+    </div>
+    <div class="grid grid-3">
+        {% for trainer in trainers %}
+        <article class="trainer-card">
+            <div class="trainer-avatar">{{ trainer.name[0] }}</div>
+            <h3>{{ trainer.name }}</h3>
+            <p>{{ trainer.specialization }}</p>
+            <span>{{ trainer.experience }}</span>
+            <a href="/booking?trainer={{ trainer.name | urlencode }}" class="button button-secondary">Записаться к тренеру</a>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-heading with-link">
+        <div>
+            <span class="eyebrow">Абонементы</span>
+            <h2>Форматы посещения</h2>
+        </div>
+        <a href="/memberships" class="text-link">Все варианты</a>
+    </div>
+    <div class="grid grid-4">
+        {% for item in memberships %}
+        <article class="membership-card">
+            <h3>{{ item.title }}</h3>
+            <strong>{{ item.price }} ₽</strong>
+            <p>{{ item.description }}</p>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section contact-section">
+    <div class="section-heading">
+        <span class="eyebrow">Контакты</span>
+        <h2>Как нас найти</h2>
+    </div>
+    <div class="contact-layout">
+        <div class="contact-card">
+            <p><strong>Адрес:</strong> г. Москва, ул. Спортивная, 12</p>
+            <p><strong>Телефон:</strong> +7 (999) 123-45-67</p>
+            <p><strong>Время работы:</strong> ежедневно, 07:00-23:00</p>
+        </div>
+        <div class="map-card">
+            <div class="map-placeholder">
+                <span>Карта / адрес</span>
+                <p>Для учебного проекта оставлен чистый блок под встраивание карты.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

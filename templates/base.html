@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ gym_name }}{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/styles.css') }}">
+</head>
+<body>
+    <div class="page-shell">
+        <header class="site-header">
+            <a href="/" class="brand">{{ gym_name }}</a>
+            <nav class="nav">
+                <a href="/">Главная</a>
+                <a href="/memberships">Абонементы</a>
+                <a href="/trainers">Тренеры</a>
+                <a href="/booking">Запись</a>
+                {% if current_user %}
+                <a href="{{ dashboard_link }}">Кабинет</a>
+                {% if current_user.role == "admin" %}
+                <a href="/admin">CRM</a>
+                {% endif %}
+                <a href="/logout">Выход</a>
+                {% else %}
+                <a href="/login">Вход</a>
+                <a href="/register">Регистрация</a>
+                {% endif %}
+            </nav>
+        </header>
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+        <footer class="site-footer">
+            <div>
+                <strong>{{ gym_name }}</strong>
+                <p>Тренажёрный зал для регулярных и понятных тренировок.</p>
+            </div>
+            <div class="footer-contacts">
+                <span>г. Москва, ул. Спортивная, 12</span>
+                <span>+7 (999) 123-45-67</span>
+            </div>
+        </footer>
+    </div>
+    <script src="{{ url_for('static', path='/js/main.js') }}" defer></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

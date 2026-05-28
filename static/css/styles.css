@@ -1,0 +1,473 @@
+:root {
+    --bg: #f3efe8;
+    --surface: rgba(255, 255, 255, 0.85);
+    --surface-strong: #ffffff;
+    --text: #1d2421;
+    --muted: #67716c;
+    --line: #ddd4c7;
+    --accent: #2f5d50;
+    --accent-soft: #deebe6;
+    --danger: #a24b45;
+    --shadow: 0 18px 42px rgba(40, 47, 43, 0.08);
+    --radius: 24px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Manrope", sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(circle at top left, rgba(47, 93, 80, 0.12), transparent 28%),
+        linear-gradient(180deg, #f7f4ef 0%, var(--bg) 100%);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+.page-shell {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.site-header,
+.site-footer,
+.nav,
+.hero-actions,
+.section-heading.with-link,
+.panel-heading,
+.admin-filters,
+.membership-side,
+.client-card-header,
+.client-card-meta,
+.stack-head,
+.inline-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.site-header {
+    padding: 10px 0 24px;
+}
+
+.brand {
+    font-weight: 800;
+    font-size: 1.2rem;
+    letter-spacing: 0.04em;
+}
+
+.nav {
+    flex-wrap: wrap;
+    color: var(--muted);
+}
+
+.nav a:hover,
+.text-link:hover {
+    color: var(--accent);
+}
+
+.hero,
+.page-intro,
+.panel,
+.info-card,
+.trainer-card,
+.membership-card,
+.membership-detail,
+.contact-card,
+.map-card,
+.booking-form,
+.booking-aside,
+.stat-card,
+.stack-card,
+.client-card {
+    background: var(--surface);
+    border: 1px solid rgba(221, 212, 199, 0.85);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    backdrop-filter: blur(12px);
+}
+
+.hero {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 24px;
+    padding: 28px;
+}
+
+.hero h1,
+.page-intro h1,
+.section-heading h2 {
+    margin: 10px 0 12px;
+    line-height: 1.04;
+}
+
+.hero h1 {
+    font-size: clamp(2.3rem, 5vw, 4.2rem);
+    max-width: 12ch;
+}
+
+.page-intro,
+.section,
+.site-footer {
+    margin-top: 28px;
+}
+
+.page-intro,
+.panel,
+.info-card,
+.trainer-card,
+.membership-card,
+.membership-detail,
+.contact-card,
+.map-card,
+.booking-form,
+.booking-aside,
+.stat-card,
+.stack-card,
+.client-card {
+    padding: 22px;
+}
+
+.hero-copy p,
+.page-intro p,
+.info-card p,
+.trainer-card p,
+.membership-card p,
+.membership-detail p,
+.contact-card p,
+.map-placeholder p,
+.booking-aside li,
+.site-footer p,
+.muted-text,
+.stack-card p {
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.eyebrow {
+    display: inline-block;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0 18px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.button:hover {
+    transform: translateY(-1px);
+}
+
+.button-primary {
+    background: var(--accent);
+    color: #fff;
+}
+
+.button-secondary {
+    background: var(--surface-strong);
+    border-color: var(--line);
+}
+
+.danger-button {
+    color: var(--danger);
+    border-color: rgba(162, 75, 69, 0.2);
+}
+
+.hero-panel,
+.stack-list,
+.clients-list,
+.client-bookings,
+.account-app,
+.account-role-block {
+    display: grid;
+    gap: 14px;
+}
+
+.metric-card,
+.stat-card,
+.pill,
+.info-banner {
+    border-radius: 18px;
+}
+
+.metric-card,
+.stat-card {
+    padding: 18px;
+    background: var(--surface-strong);
+    border: 1px solid var(--line);
+}
+
+.pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 32px;
+    padding: 0 12px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.88rem;
+}
+
+.metric-card span,
+.stat-card span,
+.trainer-card span,
+.membership-card strong,
+.membership-side strong {
+    display: block;
+    color: var(--muted);
+}
+
+.metric-card strong,
+.stat-card strong,
+.membership-card strong,
+.membership-side strong {
+    margin-top: 8px;
+    color: var(--text);
+    font-size: 1.15rem;
+}
+
+.section-heading {
+    margin-bottom: 16px;
+}
+
+.grid,
+.contact-layout,
+.booking-layout,
+.admin-grid,
+.account-grid,
+.form-grid,
+.stats-grid {
+    display: grid;
+    gap: 18px;
+}
+
+.grid-2,
+.contact-layout,
+.booking-layout,
+.admin-grid,
+.account-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.stats-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.trainer-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    display: grid;
+    place-items: center;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 800;
+    margin-bottom: 18px;
+}
+
+.contact-layout .map-card,
+.contact-layout .contact-card {
+    min-height: 100%;
+}
+
+.map-placeholder {
+    min-height: 240px;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    border: 1px dashed var(--line);
+    border-radius: 18px;
+    padding: 20px;
+}
+
+label {
+    display: grid;
+    gap: 8px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 13px 14px;
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    background: var(--surface-strong);
+    color: var(--text);
+}
+
+textarea {
+    resize: vertical;
+}
+
+.form-message {
+    min-height: 24px;
+    margin: 10px 0 0;
+    color: var(--accent);
+}
+
+.simple-list {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.admin-dashboard {
+    display: grid;
+    gap: 18px;
+}
+
+.admin-filters {
+    flex-wrap: wrap;
+    align-items: end;
+}
+
+.admin-filters label {
+    min-width: 180px;
+    flex: 1;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+.bookings-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.bookings-table th,
+.bookings-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    vertical-align: top;
+}
+
+.client-bookings {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+}
+
+.booking-history-item {
+    padding: 12px;
+    border-radius: 14px;
+    background: #efe8de;
+}
+
+.site-footer {
+    padding: 24px 0 36px;
+    color: var(--muted);
+}
+
+.footer-contacts {
+    display: grid;
+    gap: 4px;
+    text-align: right;
+}
+
+.auth-section {
+    max-width: 640px;
+}
+
+.auth-form,
+.compact-form {
+    gap: 14px;
+    display: grid;
+}
+
+.inline-form {
+    flex-wrap: wrap;
+}
+
+.stack-card {
+    display: grid;
+    gap: 8px;
+}
+
+.info-banner {
+    padding: 12px 14px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    margin-bottom: 12px;
+}
+
+.hidden {
+    display: none;
+}
+
+@media (max-width: 960px) {
+    .hero,
+    .grid-4,
+    .grid-3,
+    .grid-2,
+    .contact-layout,
+    .booking-layout,
+    .admin-grid,
+    .account-grid,
+    .stats-grid,
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 720px) {
+    .page-shell {
+        padding: 18px;
+    }
+
+    .site-header,
+    .site-footer,
+    .hero-actions,
+    .section-heading.with-link,
+    .admin-filters,
+    .membership-side,
+    .client-card-header,
+    .client-card-meta,
+    .stack-head,
+    .inline-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .footer-contacts {
+        text-align: left;
+    }
+}

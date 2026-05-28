@@ -1,0 +1,49 @@
+<form id="booking-form" class="booking-form" data-mode="{{ booking_form_mode | default('public') }}">
+    {% if booking_form_mode == "client" %}
+    <p class="info-banner">Это единая форма записи. Она используется и на странице записи, и в личном кабинете.</p>
+    {% elif current_user and current_user.role == "client" %}
+    <p class="info-banner">Это единая форма записи. Она используется и на странице записи, и в личном кабинете.</p>
+    {% endif %}
+    <div class="form-grid">
+        <label>
+            <span>Имя</span>
+            <input type="text" name="name" value="{{ current_user.profile.name if current_user and current_user.profile else '' }}" {% if booking_form_mode == "client" %}readonly{% endif %} required>
+        </label>
+        <label>
+            <span>Телефон</span>
+            <input type="tel" name="phone" value="{{ current_user.phone or '' if current_user else '' }}" {% if booking_form_mode == "client" %}readonly{% endif %} required>
+        </label>
+        <label>
+            <span>Дата</span>
+            <input type="date" name="date" required>
+        </label>
+        <label>
+            <span>Время</span>
+            <input type="time" name="time" required>
+        </label>
+        <label>
+            <span>Тип тренировки</span>
+            <select name="training_type" required>
+                <option value="">Выберите вариант</option>
+                <option>Разовый визит</option>
+                <option>Персональные тренировки</option>
+                <option>Групповые занятия</option>
+            </select>
+        </label>
+        <label>
+            <span>Тренер</span>
+            <select name="trainer">
+                <option value="">Не выбирать тренера</option>
+                {% for trainer in trainers %}
+                <option value="{{ trainer.id }}" data-trainer-name="{{ trainer.name }}">{{ trainer.name }}</option>
+                {% endfor %}
+            </select>
+        </label>
+    </div>
+    <label>
+        <span>Комментарий</span>
+        <textarea name="comment" rows="5" placeholder="Цель тренировки, ограничения или пожелания"></textarea>
+    </label>
+    <button type="submit" class="button button-primary">Записаться на тренировку</button>
+    <p id="booking-message" class="form-message"></p>
+</form>

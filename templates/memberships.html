@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}{{ gym_name }} | Абонементы{% endblock %}
+
+{% block content %}
+<section class="page-intro">
+    <span class="eyebrow">Абонементы</span>
+    <h1>Выберите удобный формат тренировок</h1>
+    <p>Покупка абонемента начисляет посещения в личный кабинет. Запись на тренировку оформляется отдельно, уже после покупки.</p>
+</section>
+
+<section class="section" id="memberships-page" data-authenticated="{{ 'true' if current_user else 'false' }}" data-role="{{ current_user.role if current_user else '' }}">
+    <div class="grid grid-2">
+        {% for item in memberships %}
+        <article class="membership-detail" data-subscription-id="{{ item.id }}">
+            <div>
+                <h2>{{ item.title }}</h2>
+                <p>{{ item.description }}</p>
+                <p class="muted-text">
+                    Срок действия: {{ item.duration_days }} дней
+                    {% if item.total_sessions %}
+                    · посещений: {{ item.total_sessions }}
+                    {% endif %}
+                </p>
+            </div>
+            <div class="membership-side">
+                <strong>{{ item.price }} ₽</strong>
+                <button type="button" class="button button-primary buy-subscription-button" data-subscription-id="{{ item.id }}">Купить абонемент</button>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    <p id="membership-message" class="form-message"></p>
+</section>
+{% endblock %}

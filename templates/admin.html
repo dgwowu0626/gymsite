@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}{{ gym_name }} | CRM{% endblock %}
+
+{% block content %}
+<section class="page-intro">
+    <span class="eyebrow">CRM / Админ-панель</span>
+    <h1>Управление пользователями, тренерами, абонементами и заявками</h1>
+    <p>Администратор видит всю систему: обычные заявки, личные записи, пользователей, тренеров и назначенные абонементы.</p>
+</section>
+
+<section class="section admin-dashboard" id="admin-app">
+    <div class="stats-grid" id="stats-grid">
+        <div class="stat-card"><span>Всего заявок</span><strong id="stat-total">0</strong></div>
+        <div class="stat-card"><span>Новых</span><strong id="stat-new">0</strong></div>
+        <div class="stat-card"><span>Ожидают</span><strong id="stat-pending">0</strong></div>
+        <div class="stat-card"><span>На сегодня</span><strong id="stat-today">0</strong></div>
+        <div class="stat-card"><span>Завершено</span><strong id="stat-completed">0</strong></div>
+        <div class="stat-card"><span>Клиентов</span><strong id="stat-clients">0</strong></div>
+        <div class="stat-card"><span>Пользователей</span><strong id="stat-users">0</strong></div>
+        <div class="stat-card"><span>Активных абонементов</span><strong id="stat-subscriptions">0</strong></div>
+    </div>
+
+    <div class="admin-filters">
+        <label>
+            <span>Поиск</span>
+            <input type="text" id="search-input" placeholder="Имя, телефон или email">
+        </label>
+        <label>
+            <span>Дата</span>
+            <input type="date" id="date-filter">
+        </label>
+        <label>
+            <span>Статус</span>
+            <select id="status-filter">
+                <option value="">Все статусы</option>
+                <option value="new">Новая заявка</option>
+                <option value="pending">Ожидает</option>
+                <option value="confirmed">Подтверждена</option>
+                <option value="cancelled">Отменена</option>
+                <option value="completed">Завершена</option>
+            </select>
+        </label>
+        <button class="button button-secondary" id="refresh-button" type="button">Обновить</button>
+    </div>
+
+    <div class="admin-grid">
+        <section class="panel">
+            <div class="panel-heading">
+                <h2>Все записи и заявки</h2>
+            </div>
+            <div class="table-wrap">
+                <table class="bookings-table">
+                    <thead>
+                        <tr>
+                            <th>Клиент</th>
+                            <th>Тренировка</th>
+                            <th>Дата</th>
+                            <th>Статус</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookings-body"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="panel-heading">
+                <h2>Клиенты</h2>
+            </div>
+            <div id="clients-list" class="clients-list"></div>
+        </section>
+    </div>
+
+    <div class="admin-grid">
+        <section class="panel">
+            <div class="panel-heading">
+                <h2>Пользователи</h2>
+            </div>
+            <div id="users-list" class="stack-list"></div>
+        </section>
+
+        <section class="panel">
+            <div class="panel-heading">
+                <h2>Тренеры</h2>
+            </div>
+            <form id="trainer-form" class="booking-form compact-form">
+                <div class="form-grid">
+                    <label><span>Имя</span><input type="text" name="name" required></label>
+                    <label><span>Специализация</span><input type="text" name="specialization" required></label>
+                    <label><span>Опыт</span><input type="text" name="experience" required></label>
+                    <label><span>ID пользователя</span><input type="number" name="user_id"></label>
+                </div>
+                <label><span>Описание</span><textarea name="bio" rows="3"></textarea></label>
+                <button type="submit" class="button button-primary">Добавить тренера</button>
+                <p id="trainer-form-message" class="form-message"></p>
+            </form>
+            <div id="trainers-list" class="stack-list"></div>
+        </section>
+    </div>
+
+    <div class="admin-grid">
+        <section class="panel">
+            <div class="panel-heading">
+                <h2>Абонементы</h2>
+            </div>
+            <form id="subscription-form" class="booking-form compact-form">
+                <div class="form-grid">
+                    <label><span>Название</span><input type="text" name="title" required></label>
+                    <label><span>Цена</span><input type="number" name="price" min="0" step="0.01" required></label>
+                    <label><span>Длительность, дней</span><input type="number" name="duration_days" min="1" required></label>
+                    <label><span>Количество тренировок</span><input type="number" name="total_sessions" min="1"></label>
+                </div>
+                <label><span>Описание</span><textarea name="description" rows="3" required></textarea></label>
+                <button type="submit" class="button button-primary">Добавить абонемент</button>
+                <p id="subscription-form-message" class="form-message"></p>
+            </form>
+            <div id="subscriptions-list" class="stack-list"></div>
+        </section>
+
+        <section class="panel">
+            <div class="panel-heading">
+                <h2>Назначение абонемента</h2>
+            </div>
+            <form id="assign-form" class="booking-form compact-form">
+                <div class="form-grid">
+                    <label><span>ID клиента</span><input type="number" name="user_id" required></label>
+                    <label><span>ID абонемента</span><input type="number" name="subscription_id" required></label>
+                    <label><span>Дата начала</span><input type="date" name="start_date" required></label>
+                    <label><span>Остаток тренировок</span><input type="number" name="remaining_sessions" min="0"></label>
+                </div>
+                <button type="submit" class="button button-primary">Назначить абонемент</button>
+                <p id="assign-form-message" class="form-message"></p>
+            </form>
+            <div id="user-subscriptions-list" class="stack-list"></div>
+        </section>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', path='/js/admin.js') }}" defer></script>
+{% endblock %}

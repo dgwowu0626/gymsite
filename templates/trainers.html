@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}{{ gym_name }} | Тренеры{% endblock %}
+
+{% block content %}
+<section class="page-intro">
+    <span class="eyebrow">Тренеры</span>
+    <h1>Тренерский состав</h1>
+    <p>Каждый тренер ведёт понятные программы и помогает держать регулярность без перегрузки.</p>
+</section>
+
+<section class="section">
+    <div class="grid grid-3">
+        {% for trainer in trainers %}
+        <article class="trainer-card trainer-card-large">
+            <div class="trainer-avatar">{{ trainer.name[0] }}</div>
+            <h2>{{ trainer.name }}</h2>
+            <p>{{ trainer.specialization }}</p>
+            <span>{{ trainer.experience }}</span>
+            <a href="/booking?trainer={{ trainer.name | urlencode }}" class="button button-primary">Записаться к тренеру</a>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

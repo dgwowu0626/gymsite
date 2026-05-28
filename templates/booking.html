@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}{{ gym_name }} | Запись{% endblock %}
+
+{% block content %}
+<section class="page-intro">
+    <span class="eyebrow">Запись на тренировку</span>
+    <h1>Оставьте заявку</h1>
+    <p>После отправки заявка попадёт в CRM, где её можно подтвердить, изменить статус или удалить.</p>
+</section>
+
+<section class="section">
+    <div class="booking-layout">
+        {% set booking_form_mode = 'client' if current_user and current_user.role == 'client' else 'public' %}
+        {% include "partials/booking_form.html" %}
+        <aside class="booking-aside">
+            <h2>Что будет дальше</h2>
+            <ul class="simple-list">
+                <li>Если вы вошли как клиент, запись сохранится в ваш кабинет.</li>
+                <li>Если вы не авторизованы, заявка попадёт в CRM как обычная заявка.</li>
+                <li>Тренера можно не выбирать, тогда запись будет создана без него.</li>
+            </ul>
+        </aside>
+    </div>
+</section>
+{% endblock %}

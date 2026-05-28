@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}{{ gym_name }} | Кабинет{% endblock %}
+
+{% block content %}
+<section class="page-intro">
+    <span class="eyebrow">Личный кабинет</span>
+    <h1>
+        {% if current_user.role == "client" %}
+        Кабинет клиента
+        {% else %}
+        Кабинет тренера
+        {% endif %}
+    </h1>
+    <p>
+        {% if current_user.role == "client" %}
+        Профиль, мои записи, абонементы и история тренировок.
+        {% else %}
+        Расписание, клиенты и отметка завершённых тренировок.
+        {% endif %}
+    </p>
+</section>
+
+<section class="section account-app" id="account-app" data-role="{{ current_user.role }}">
+    <div id="client-cabinet" class="account-role-block {% if current_user.role != 'client' %}hidden{% endif %}">
+        <div class="account-grid">
+            <section class="panel">
+                <div class="panel-heading">
+                    <h2>Профиль</h2>
+                </div>
+                <div id="client-profile"></div>
+            </section>
+            <section class="panel">
+                <div class="panel-heading">
+                    <h2>Абонементы</h2>
+                    <a href="/memberships" class="text-link">Купить ещё</a>
+                </div>
+                <div id="client-subscriptions" class="stack-list"></div>
+            </section>
+        </div>
+
+        <section class="panel">
+            <div class="panel-heading">
+                <h2>Записаться на тренировку</h2>
+            </div>
+            {% set booking_form_mode = 'client' %}
+            {% include "partials/booking_form.html" %}
+        </section>
+
+        <div class="account-grid">
+            <section class="panel">
+                <div class="panel-heading">
+                    <h2>Мои записи</h2>
+                </div>
+                <div id="client-upcoming" class="stack-list"></div>
+            </section>
+            <section class="panel">
+                <div class="panel-heading">
+                    <h2>История тренировок</h2>
+                </div>
+                <div id="client-history" class="stack-list"></div>
+            </section>
+        </div>
+    </div>
+
+    <div id="trainer-cabinet" class="account-role-block {% if current_user.role != 'trainer' %}hidden{% endif %}">
+        <section class="panel">
+            <div class="panel-heading">
+                <h2>Профиль тренера</h2>
+            </div>
+            <div id="trainer-profile"></div>
+        </section>
+        <div class="account-grid">
+            <section class="panel">
+                <div class="panel-heading">
+                    <h2>Расписание на день</h2>
+                </div>
+                <div id="trainer-day" class="stack-list"></div>
+            </section>
+            <section class="panel">
+                <div class="panel-heading">
+                    <h2>Расписание на неделю</h2>
+                </div>
+                <div id="trainer-week" class="stack-list"></div>
+            </section>
+        </div>
+        <div class="account-grid">
+            <section class="panel">
+                <div class="panel-heading">
+                    <h2>Клиенты</h2>
+                </div>
+                <div id="trainer-clients" class="stack-list"></div>
+            </section>
+            <section class="panel">
+                <div class="panel-heading">
+                    <h2>История завершённых тренировок</h2>
+                </div>
+                <div id="trainer-history" class="stack-list"></div>
+            </section>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', path='/js/account.js') }}" defer></script>
+{% endblock %}

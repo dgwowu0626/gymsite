@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}{{ gym_name }} | Регистрация{% endblock %}
+
+{% block content %}
+<section class="page-intro">
+    <span class="eyebrow">Регистрация</span>
+    <h1>Создайте аккаунт клиента</h1>
+    <p>Регистрация открывает личный кабинет с моими записями, абонементами и историей тренировок.</p>
+</section>
+
+<section class="section auth-section">
+    <form id="register-form" class="booking-form auth-form">
+        <div class="form-grid">
+            <label>
+                <span>Имя</span>
+                <input type="text" name="name" required>
+            </label>
+            <label>
+                <span>Телефон</span>
+                <input type="tel" name="phone">
+            </label>
+            <label>
+                <span>Email</span>
+                <input type="email" name="email">
+            </label>
+            <label>
+                <span>Пароль</span>
+                <input type="password" name="password" required>
+            </label>
+        </div>
+        <button type="submit" class="button button-primary">Зарегистрироваться</button>
+        <p id="register-message" class="form-message"></p>
+    </form>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', path='/js/auth.js') }}" defer></script>
+{% endblock %}

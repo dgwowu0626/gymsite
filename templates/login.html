@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}{{ gym_name }} | Вход{% endblock %}
+
+{% block content %}
+<section class="page-intro">
+    <span class="eyebrow">Вход</span>
+    <h1>Войдите в личный кабинет</h1>
+    <p>Клиент видит только свои записи и абонементы, тренер — только свои тренировки, администратор — всю CRM.</p>
+</section>
+
+<section class="section auth-section">
+    <form id="login-form" class="booking-form auth-form">
+        <label>
+            <span>Телефон или email</span>
+            <input type="text" name="login" required>
+        </label>
+        <label>
+            <span>Пароль</span>
+            <input type="password" name="password" required>
+        </label>
+        <button type="submit" class="button button-primary">Войти</button>
+        <p id="login-message" class="form-message"></p>
+        <p class="muted-text">Тестовый администратор: `admin@northfit.local` / `admin123`</p>
+    </form>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', path='/js/auth.js') }}" defer></script>
+{% endblock %}
