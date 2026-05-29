@@ -17,6 +17,10 @@
             <h2>{{ trainer.name }}</h2>
             <p>{{ trainer.specialization }}</p>
             <span>{{ trainer.experience }}</span>
+            <div class="trainer-tags">
+                <span class="pill">Силовой план</span>
+                <span class="pill pill-soft">Контроль техники</span>
+            </div>
             <a href="/booking?trainer={{ trainer.name | urlencode }}" class="button button-primary">Записаться к тренеру</a>
         </article>
         {% endfor %}

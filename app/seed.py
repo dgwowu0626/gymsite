@@ -32,6 +32,13 @@ TRAINERS = [
     },
 ]
 
+ADMIN_TRAINER = {
+    "name": "Танделов Роман",
+    "specialization": "Силовые тренировки, персональное сопровождение и набор массы",
+    "experience": "10 лет опыта",
+    "bio": "Главный тренер зала. Составляет силовые циклы, персональные планы и помогает выстроить долгий прогресс.",
+}
+
 SUBSCRIPTIONS = [
     {
         "title": "Разовый визит",
@@ -71,27 +78,62 @@ def hash_password(password: str) -> str:
 
 
 def seed_defaults(db: Session) -> None:
-    if db.query(User).count() == 0:
+    admin = db.query(User).filter(User.email == "admin@northfit.local").first()
+    if admin is None:
         admin = User(
             phone="+79990000000",
             email="admin@northfit.local",
             password_hash=hash_password("admin123"),
             role="admin",
         )
-        admin.profile = UserProfile(name="Администратор North Fit")
         db.add(admin)
         db.flush()
 
-        for index, item in enumerate(TRAINERS, start=1):
+    admin.role = "admin"
+    admin.is_active = True
+    if admin.profile is None:
+        admin.profile = UserProfile(name="Администратор Танделов Роман")
+    else:
+        admin.profile.name = "Администратор Танделов Роман"
+
+    admin_trainer = db.query(Trainer).filter(Trainer.user_id == admin.id).first()
+    if admin_trainer is None:
+        admin_trainer = db.query(Trainer).filter(Trainer.name == ADMIN_TRAINER["name"]).first()
+
+    if admin_trainer is None:
+        db.add(Trainer(user_id=admin.id, **ADMIN_TRAINER))
+    else:
+        admin_trainer.user_id = admin.id
+        admin_trainer.name = ADMIN_TRAINER["name"]
+        admin_trainer.specialization = ADMIN_TRAINER["specialization"]
+        admin_trainer.experience = ADMIN_TRAINER["experience"]
+        admin_trainer.bio = ADMIN_TRAINER["bio"]
+
+    for index, item in enumerate(TRAINERS, start=1):
+        user = db.query(User).filter(User.email == f"trainer{index}@northfit.local").first()
+        if user is None:
             user = User(
                 phone=item["login_phone"],
                 email=f"trainer{index}@northfit.local",
                 password_hash=hash_password("trainer123"),
                 role="trainer",
             )
-            user.profile = UserProfile(name=item["name"])
             db.add(user)
             db.flush()
+
+        user.role = "trainer"
+        user.is_active = True
+        user.phone = item["login_phone"]
+        if user.profile is None:
+            user.profile = UserProfile(name=item["name"])
+        else:
+            user.profile.name = item["name"]
+
+        trainer = db.query(Trainer).filter(Trainer.user_id == user.id).first()
+        if trainer is None:
+            trainer = db.query(Trainer).filter(Trainer.name == item["name"]).first()
+
+        if trainer is None:
             db.add(
                 Trainer(
                     user_id=user.id,
@@ -101,6 +143,12 @@ def seed_defaults(db: Session) -> None:
                     bio=item["bio"],
                 )
             )
+        else:
+            trainer.user_id = user.id
+            trainer.name = item["name"]
+            trainer.specialization = item["specialization"]
+            trainer.experience = item["experience"]
+            trainer.bio = item["bio"]
 
     existing_subscriptions = {item.title: item for item in db.query(Subscription).all()}
     for item in SUBSCRIPTIONS:

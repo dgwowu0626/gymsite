@@ -6,14 +6,17 @@
 <section class="hero">
     <div class="hero-copy">
         <span class="eyebrow">Спокойный ритм. Понятный прогресс.</span>
-        <h1>{{ gym_name }} — зал для тех, кто хочет тренироваться без лишнего шума</h1>
-        <p>Современное пространство, удобное расписание, персональные и групповые тренировки, понятная система записи.</p>
+        <h1>{{ gym_name }} — зал для тех, кто хочет тренироваться мощно и регулярно</h1>
+        <p>Современное пространство, удобное расписание, персональные и групповые тренировки, понятная система записи и аккуратная CRM.</p>
         <div class="hero-actions">
             <a href="/booking" class="button button-primary">Записаться на тренировку</a>
             <a href="/memberships" class="button button-secondary">Посмотреть абонементы</a>
         </div>
     </div>
     <div class="hero-panel">
+        <div class="hero-image-card">
+            <img src="{{ url_for('static', path='/images/hero-gym.svg') }}" alt="Интерьер тренажёрного зала {{ gym_name }}">
+        </div>
         <div class="metric-card">
             <span>Формат</span>
             <strong>Тренажёрный зал + персональный тренинг</strong>
@@ -36,16 +39,42 @@
     </div>
     <div class="grid grid-3">
         <article class="info-card">
+            <img src="{{ url_for('static', path='/images/icon-membership.svg') }}" alt="" class="info-icon">
             <h3>Понятный зал</h3>
             <p>Чистое пространство, базовые и функциональные зоны, без перегруженного дизайна.</p>
         </article>
         <article class="info-card">
+            <img src="{{ url_for('static', path='/images/icon-coach.svg') }}" alt="" class="info-icon">
             <h3>Тренеры рядом</h3>
             <p>Персональные программы под набор массы, снижение веса и общую физическую форму.</p>
         </article>
         <article class="info-card">
+            <img src="{{ url_for('static', path='/images/icon-clock.svg') }}" alt="" class="info-icon">
             <h3>Гибкая запись</h3>
             <p>Онлайн-запись, быстрый выбор тренера и удобное управление заявками через CRM.</p>
+        </article>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-heading">
+        <span class="eyebrow">Атмосфера</span>
+        <h2>Зоны зала</h2>
+    </div>
+    <div class="gallery-grid">
+        <article class="gallery-card">
+            <img src="{{ url_for('static', path='/images/zone-strength.svg') }}" alt="Силовая зона {{ gym_name }}">
+            <div class="gallery-copy">
+                <h3>Силовая зона</h3>
+                <p>Стойки, штанги и базовые веса для уверенного прогресса.</p>
+            </div>
+        </article>
+        <article class="gallery-card">
+            <img src="{{ url_for('static', path='/images/zone-cardio.svg') }}" alt="Кардио зона {{ gym_name }}">
+            <div class="gallery-copy">
+                <h3>Кардио и разминка</h3>
+                <p>Пространство для подготовки, восстановления и регулярной выносливости.</p>
+            </div>
         </article>
     </div>
 </section>
@@ -65,6 +94,10 @@
             <h3>{{ trainer.name }}</h3>
             <p>{{ trainer.specialization }}</p>
             <span>{{ trainer.experience }}</span>
+            <div class="trainer-tags">
+                <span class="pill">Персонально</span>
+                <span class="pill pill-soft">План тренировок</span>
+            </div>
             <a href="/booking?trainer={{ trainer.name | urlencode }}" class="button button-secondary">Записаться к тренеру</a>
         </article>
         {% endfor %}
@@ -97,14 +130,17 @@
     </div>
     <div class="contact-layout">
         <div class="contact-card">
-            <p><strong>Адрес:</strong> г. Москва, ул. Спортивная, 12</p>
+            <p><strong>Адрес:</strong> г. Москва, Живописная улица, 21с4</p>
             <p><strong>Телефон:</strong> +7 (999) 123-45-67</p>
             <p><strong>Время работы:</strong> ежедневно, 07:00-23:00</p>
         </div>
         <div class="map-card">
-            <div class="map-placeholder">
-                <span>Карта / адрес</span>
-                <p>Для учебного проекта оставлен чистый блок под встраивание карты.</p>
+            <div class="map-widget">
+                <div style="position:relative;overflow:hidden;">
+                    <a href="https://yandex.com/maps/213/moscow/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:0px;">Москва</a>
+                    <a href="https://yandex.com/maps/213/moscow/house/zhivopisnaya_ulitsa_21s4/Z04YcgNpTkUDQFtvfXt4c3hkZw==/?ll=37.450953%2C55.791425&utm_medium=mapframe&utm_source=maps&z=17.8" style="color:#eee;font-size:12px;position:absolute;top:14px;">Живописная улица, 21с4 — Яндекс Карты</a>
+                    <iframe src="https://yandex.com/map-widget/v1/?ll=37.450953%2C55.791425&mode=whatshere&whatshere%5Bpoint%5D=37.449551%2C55.792438&whatshere%5Bzoom%5D=17&z=17.8" width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe>
+                </div>
             </div>
         </div>
     </div>

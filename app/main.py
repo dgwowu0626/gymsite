@@ -39,7 +39,7 @@ from app.seed import seed_defaults
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-GYM_NAME = "North Fit"
+GYM_NAME = "Tandelov Power"
 SESSION_SECRET = "north-fit-demo-secret"
 
 app = FastAPI(title="Gym Site CRM")
